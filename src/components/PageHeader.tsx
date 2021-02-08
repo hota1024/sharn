@@ -22,7 +22,7 @@ export const PageHeader: React.FC = () => {
     <>
       <div>
         <Title>sharn</Title>
-        <SharnSubTitle>テキストを簡単にシェアできるアプリ</SharnSubTitle>
+        <SharnSubTitle>テキストを簡単にシェアできるアプリ#BETA</SharnSubTitle>
       </div>
     </>
   )
