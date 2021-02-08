@@ -11,6 +11,7 @@ import { Content } from '../components/Content'
 import { Card } from '../components/Card'
 import axios, { AxiosError } from 'axios'
 import { MAX_COUNT } from '../constants/MAX_COUNT'
+import { useRouter } from 'next/dist/client/router'
 
 /**
  * HomePage component.
@@ -18,6 +19,7 @@ import { MAX_COUNT } from '../constants/MAX_COUNT'
 export const HomePage: NextPage = () => {
   const [text, setText] = useState('')
   const [error, setError] = useState<undefined | string>()
+  const router = useRouter()
   const maxTextLength = MAX_COUNT
 
   const storeText = async () => {
@@ -27,9 +29,10 @@ export const HomePage: NextPage = () => {
         text,
       })
       .then((r) => {
-        console.log(r.data)
+        router.push(`/${r.data.id}`)
       })
       .catch((e: AxiosError<{ error: { message: string } }>) => {
+        console.log(e)
         setError(e.response.data.error.message)
       })
   }
@@ -49,7 +52,7 @@ export const HomePage: NextPage = () => {
             )}
             <Editor
               name="text-input"
-              placeholder={`共有するテキスト（${maxTextLength}文字以内）\nhttps://~からはじまるテキストはリンクとして扱われます。`}
+              placeholder={`共有するテキスト（${maxTextLength}文字以内）`}
               value={text}
               onChange={(e) => setText(e.target.value)}
               maxLength={maxTextLength}

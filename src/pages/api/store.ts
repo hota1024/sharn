@@ -1,20 +1,28 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
 import { MAX_COUNT } from '../../constants/MAX_COUNT'
+import { Text } from '../../types/Text'
 
-type Text = {
-  id: string
-  words: string[]
-  text: string
-  createdAt: number
-}
-
-const data: Text[] = []
+export let data: Text[] = []
 
 export default async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
+  if (data.length > 50) {
+    const now = Date.now()
+    data = data.filter((t) => now - t.createdAt < 24 * 60 * 60 * 1000)
+  }
+
+  if (data.length > 50) {
+    res.status(400).json({
+      error: {
+        message: 'サーバーに保存されているテキストが最大数になっています',
+      },
+    })
+    return
+  }
+
   if (typeof req.body.text !== 'string') {
     res.status(400).json({
       error: {
