@@ -112,7 +112,7 @@ export const TextPage: NextPage<{ text?: Text }> = ({ text }) => {
 TextPage.getInitialProps = async (ctx) => {
   try {
     const { data } = await axios.get(
-      'http://localhost:3000/api/get?id=' + ctx.query.id
+      'https://sharn.now.sh/api/get?id=' + ctx.query.id
     )
 
     return {
