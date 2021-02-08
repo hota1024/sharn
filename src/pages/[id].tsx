@@ -1,6 +1,5 @@
 import { NextPage } from 'next'
 import Link from 'next/link'
-import { useToasts } from 'react-toast-notifications'
 import { Main } from '../components/Main'
 import { Content } from '../components/Content'
 import { PageHead } from '../components/PageHead'

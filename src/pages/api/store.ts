@@ -63,7 +63,5 @@ export default async (
 
   data.push(text)
 
-  console.log(data)
-
   res.status(200).json(text)
 }
